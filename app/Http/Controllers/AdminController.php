@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pasar;
+use App\Models\produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Produk as GlobalProduk;
 
 class AdminController extends Controller
 {
@@ -29,6 +31,7 @@ class AdminController extends Controller
         return view('admin.produk.index', [
             'title' => 'Data Produk | SODAMOLEK',
             'active' => 'produk',
+            'rows' => produk::get(),
         ]);
     }
     public function harga()
@@ -100,6 +103,7 @@ class AdminController extends Controller
         return view('admin.produk.tambah', [
             'title' => 'Tambah Data Produk | SODAMOLEK',
             'active' => 'produk',
+            
         ]);
     }
 
@@ -112,8 +116,33 @@ class AdminController extends Controller
             'keterangan' => $request->input('keterangan'),
             ];
 
-        Pasar::create($data);
+        produk::create($data);
 
-        return redirect('/admn-pg/pasar')->with('success', 'Input data berhasil');
+        return redirect('/admn-pg/produk')->with('success', 'Input data berhasil');
+    }
+    public function produkEdit($id)
+    {
+        return view('admin.produk.edit', [
+            'title' => 'Edit Data Produk | SODAMOLEK',
+            'active' => 'produk',
+            'w' => Produk::find($id),
+        ]);
+    }
+    public function produkUpdate(Request $request, $id)
+    {
+        $data = [
+            'nama_produk' => $request->input('nama_produk'),
+            'merek' => $request->input('merk'),
+            'satuan' => $request->input('satuan'),
+            'keterangan' => $request->input('keterangan'),
+        ];
+        produk::find($id)->update($data);
+
+        return redirect('/admn-pg/produk')->with('success', 'Input data diupdate');
+    }
+    public function produkHapus($id)
+    {
+        produk::destroy($id);
+        return redirect('/admn-pg/produk')->with('success', 'Input data dihapus');
     }
 }
