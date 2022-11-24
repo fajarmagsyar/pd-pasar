@@ -36,13 +36,6 @@
                                                         <th class="text-center" style="font-size: 18px"><i
                                                                 class="mdi mdi-tune"></i>
                                                         </th>
-<<<<<<< HEAD
-                                                        <th>Eli</th>
-                                                        <th>Company</th>
-                                                        <th>Progress</th>
-                                                        <th>Status</th>
-=======
->>>>>>> 8fa755fbe2ed831e71e9e7af194163be8fb82b1a
                                                     </tr>
                                                 </thead>
                                                 <tbody>
