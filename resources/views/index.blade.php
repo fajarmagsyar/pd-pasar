@@ -82,93 +82,26 @@
 
                                     <div class="row flex-grow mt-4">
 
-                                        <div class="col-lg-6 grid-margin stretch-card mx-auto">
-                                            <div class="card card-rounded"
-                                                style="
-                                                background: #1E283D url('/assets/images/dashboard/darkBG.png')
+                                        @foreach ($rows as $r)
+                                            <div class="col-lg-6 grid-margin stretch-card mx-auto">
+                                                <div class="card card-rounded"
+                                                    style="
+                                                background: #1E283D url('/{{ $r->foto_pasar }}')
                                                     repeat-y right top;">
-                                                <div class="card-body">
-                                                    <div class="col-sm-8">
-                                                        <h3 class="text-white upgrade-info mb-0">
-                                                            Pasar <span class="fw-bold">Oebobo</span>
-                                                        </h3>
-                                                        <a href="/pasar/id" class="btn btn-info upgrade-btn"><i
-                                                                class="mdi mdi-finance"></i> Lihat
-                                                            Harga</a>
+                                                    <div class="card-body">
+                                                        <div class="col-sm-8">
+                                                            <h3 class="text-white upgrade-info mb-0">
+                                                                {{ $r->nama_pasar }}
+                                                            </h3>
+                                                            <a href="/pasar/{{ $r->pasar_id }}"
+                                                                class="btn btn-info upgrade-btn"><i
+                                                                    class="mdi mdi-finance"></i> Lihat
+                                                                Harga</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-
-
-                                        <div class="col-lg-6 grid-margin stretch-card mx-auto">
-                                            <div class="card card-rounded"
-                                                style="
-                                                background: #1E283D url('/assets/images/dashboard/darkBG.png')
-                                                    repeat-y right top;">
-                                                <div class="card-body">
-                                                    <div class="col-sm-8">
-                                                        <h3 class="text-white upgrade-info mb-0">
-                                                            Pasar <span class="fw-bold">Oebobo</span>
-                                                        </h3>
-                                                        <a href="/pasar/id" class="btn btn-info upgrade-btn"><i
-                                                                class="mdi mdi-finance"></i> Lihat
-                                                            Harga</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 grid-margin stretch-card mx-auto">
-                                            <div class="card card-rounded"
-                                                style="
-                                                background: #1E283D url('/assets/images/dashboard/darkBG.png')
-                                                    repeat-y right top;">
-                                                <div class="card-body">
-                                                    <div class="col-sm-8">
-                                                        <h3 class="text-white upgrade-info mb-0">
-                                                            Pasar <span class="fw-bold">Oebobo</span>
-                                                        </h3>
-                                                        <a href="/pasar/id" class="btn btn-info upgrade-btn"><i
-                                                                class="mdi mdi-finance"></i> Lihat
-                                                            Harga</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 grid-margin stretch-card mx-auto">
-                                            <div class="card card-rounded"
-                                                style="
-                                                background: #1E283D url('/assets/images/dashboard/darkBG.png')
-                                                    repeat-y right top;">
-                                                <div class="card-body">
-                                                    <div class="col-sm-8">
-                                                        <h3 class="text-white upgrade-info mb-0">
-                                                            Pasar <span class="fw-bold">Oebobo</span>
-                                                        </h3>
-                                                        <a href="/pasar/id" class="btn btn-info upgrade-btn"><i
-                                                                class="mdi mdi-finance"></i> Lihat
-                                                            Harga</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 grid-margin stretch-card mx-auto">
-                                            <div class="card card-rounded"
-                                                style="
-                                                background: #1E283D url('/assets/images/dashboard/darkBG.png')
-                                                    repeat-y right top;">
-                                                <div class="card-body">
-                                                    <div class="col-sm-8">
-                                                        <h3 class="text-white upgrade-info mb-0">
-                                                            Pasar <span class="fw-bold">Oebobo</span>
-                                                        </h3>
-                                                        <a href="/pasar/id" class="btn btn-info upgrade-btn"><i
-                                                                class="mdi mdi-finance"></i> Lihat
-                                                            Harga</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        @endforeach
 
                                     </div>
                                 </div>
