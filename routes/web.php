@@ -20,3 +20,8 @@ Route::get('/', [ClientController::class, 'index']);
 
 Route::get('/admn-pg/dashboard', [AdminController::class, 'index']);
 Route::get('/admn-pg/pasar', [AdminController::class, 'pasar']);
+
+//produk
+Route::get('/admn-pg/produk', [AdminController::class, 'produk']);
+//harga
+Route::get('/admn-pg/harga', [AdminController::class, 'harga']);

@@ -35,8 +35,8 @@
                                                                         class="input-helper"></i></label>
                                                             </div>
                                                         </th>
-                                                        <th>Eli</th>
-                                                        <th>Company</th>
+                                                        <th>Customer</th>
+                                                        <th>Aser</th>
                                                         <th>Progress</th>
                                                         <th>Status</th>
                                                     </tr>

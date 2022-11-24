@@ -21,4 +21,18 @@ class AdminController extends Controller
             'active' => 'pasar',
         ]);
     }
+    public function produk()
+    {
+        return view('admin.produk.index', [
+            'title' => 'Data Produk | SODAMOLEK',
+            'active' => 'produk',
+        ]);
+    }
+    public function harga()
+    {
+        return view('admin.harga.index', [
+            'title' => 'Data harga | SODAMOLEK',
+            'active' => 'harga',
+        ]);
+    }
 }
