@@ -94,4 +94,26 @@ class AdminController extends Controller
         Pasar::destroy($id);
         return redirect('/admn-pg/pasar')->with('success', 'Input data dihapus');
     }
+
+    public function produkTambah()
+    {
+        return view('admin.produk.tambah', [
+            'title' => 'Tambah Data Produk | SODAMOLEK',
+            'active' => 'produk',
+        ]);
+    }
+
+    public function produkStore(Request $request)
+    {
+        $data = [
+            'nama_produk' => $request->input('nama_produk'),
+            'merk' => $request->input('merk'),
+            'satuan' => $request->input('satuan'),
+            'keterangan' => $request->input('keterangan'),
+            ];
+
+        Pasar::create($data);
+
+        return redirect('/admn-pg/pasar')->with('success', 'Input data berhasil');
+    }
 }
