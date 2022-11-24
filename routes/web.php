@@ -31,5 +31,11 @@ Route::get('/admn-pg/pasar/{id}/hapus', [AdminController::class, 'pasarHapus']);
 //produk
 Route::get('/admn-pg/produk', [AdminController::class, 'produk']);
 Route::get('/admn-pg/produk/tambah', [AdminController::class, 'produkTambah']);
+Route::post('/admn-pg/produk/tambah', [AdminController::class, 'produkStore']);
+Route::get('/admn-pg/produk/{id}/edit', [AdminController::class, 'produkEdit']);
+Route::post('/admn-pg/produk/{id}/edit', [AdminController::class, 'produkUpdate']);
+Route::get('/admn-pg/produk/{id}/hapus', [AdminController::class, 'produkHapus']);
+
+
 //harga
 Route::get('/admn-pg/harga', [AdminController::class, 'harga']);

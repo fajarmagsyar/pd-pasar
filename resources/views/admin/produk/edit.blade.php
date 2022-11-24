@@ -14,7 +14,7 @@
                                             <div>
                                                 <h4 class="card-title card-title-dash">Data {{ ucwords($active) }}</h4>
                                                 <p class="card-subtitle card-subtitle-dash">
-                                                    Daftar pasar yang ada di Kota Kupang.
+                                                    Ubah data produk yang sudah ada
                                                 </p>
                                             </div>
                                             <div>
@@ -26,16 +26,16 @@
                                         </div>
 
                                         <div class="mt-4">
-                                            <form action="/admn-pg/produk/tambah" method="post">
+                                            <form action="/admn-pg/produk/{{ $w->produk_id }}/edit" method="post">
                                                 @csrf
                                                 <div class="row">
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
-                                                            <label for="nama_pruduk" class="form-label">
+                                                            <label for="nama_produk" class="form-label">
                                                                 Nama Produk
                                                             </label>
                                                             <input type="text" name="nama_produk" class="form-control"
-                                                                id="nama_produk">
+                                                                id="nama_produk" required value="{{ $w->nama_produk }}">
                                                         </div>
                                                     </div>
 
@@ -43,32 +43,29 @@
                                                         <div class="mb-3">
                                                             <label for="nama_produk" class="form-label">
                                                                 Merek
-                                                            </label>
-                                                            <textarea name="merk" class="form-control" id="" cols="30" rows="5"></textarea>
+                                                            <textarea required name="merk" class="form-control" id="">{{ $w->merk }}</textarea>
                                                         </div>
                                                     </div>
 
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
-                                                            <label for=satuan" class="form-label">
-                                                               Satuan
+                                                            <label for="satuan" class="form-label">
+                                                                Satuan
                                                             </label>
-                                                            <input type="number" name="satuan" class="form-control"
-                                                                id="satuan">
+                                                            <input type="text" name="satuan" class="form-control"
+                                                                required value="{{ $w->satuan }}" id="satuan">
                                                         </div>
                                                     </div>
 
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
-                                                            <label for="telp" class="form-label">
+                                                            <label for="keterangan" class="form-label">
                                                                 Keterangan
                                                             </label>
-                                                            <input type="text" name="keterangan" class="form-control"
-                                                                id="keterangan">
+                                                            <input type="keterangan" value="{{ $w->keterangan }}" name="keterangan"
+                                                                class="form-control" id="email">
                                                         </div>
                                                     </div>
-
-                                                    
                                                 </div>
 
                                                 <div class="col-lg-12">
