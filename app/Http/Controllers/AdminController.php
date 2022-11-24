@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pasar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -19,8 +21,10 @@ class AdminController extends Controller
         return view('admin.pasar.index', [
             'title' => 'Data Pasar | SODAMOLEK',
             'active' => 'pasar',
+            'rows' => Pasar::get(),
         ]);
     }
+<<<<<<< HEAD
     public function produk()
     {
         return view('admin.produk.index', [
@@ -35,4 +39,62 @@ class AdminController extends Controller
             'active' => 'harga',
         ]);
     }
+=======
+
+    public function pasarTambah()
+    {
+        return view('admin.pasar.tambah', [
+            'title' => 'Tambah Data Pasar | SODAMOLEK',
+            'active' => 'pasar',
+        ]);
+    }
+
+    public function pasarStore(Request $request)
+    {
+        $data = [
+            'nama_pasar' => $request->input('nama_pasar'),
+            'alamat_pasar' => $request->input('alamat_pasar'),
+            'telp' => $request->input('telp'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password')),
+        ];
+
+        Pasar::create($data);
+
+        return redirect('/admn-pg/pasar')->with('success', 'Input data berhasil');
+    }
+
+    public function pasarEdit($id)
+    {
+        return view('admin.pasar.edit', [
+            'title' => 'Edit Data Pasar | SODAMOLEK',
+            'active' => 'pasar',
+            'r' => Pasar::find($id),
+        ]);
+    }
+
+    public function pasarUpdate(Request $request, $id)
+    {
+        $data = [
+            'nama_pasar' => $request->input('nama_pasar'),
+            'alamat_pasar' => $request->input('alamat_pasar'),
+            'telp' => $request->input('telp'),
+            'email' => $request->input('email'),
+        ];
+
+        if ($request->input('password') != null) {
+            $data['password'] = Hash::make($request->input('password'));
+        }
+
+        Pasar::find($id)->update($data);
+
+        return redirect('/admn-pg/pasar')->with('success', 'Input data diupdate');
+    }
+
+    public function pasarHapus($id)
+    {
+        Pasar::destroy($id);
+        return redirect('/admn-pg/pasar')->with('success', 'Input data dihapus');
+    }
+>>>>>>> 8fa755fbe2ed831e71e9e7af194163be8fb82b1a
 }
