@@ -24,7 +24,6 @@ class AdminController extends Controller
             'rows' => Pasar::get(),
         ]);
     }
-<<<<<<< HEAD
     public function produk()
     {
         return view('admin.produk.index', [
@@ -39,7 +38,6 @@ class AdminController extends Controller
             'active' => 'harga',
         ]);
     }
-=======
 
     public function pasarTambah()
     {
@@ -96,5 +94,4 @@ class AdminController extends Controller
         Pasar::destroy($id);
         return redirect('/admn-pg/pasar')->with('success', 'Input data dihapus');
     }
->>>>>>> 8fa755fbe2ed831e71e9e7af194163be8fb82b1a
 }
