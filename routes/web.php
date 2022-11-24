@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [ClientController::class, 'index']);
+Route::get('/pasar/{id}', [ClientController::class, 'pasarDetail']);
 
 Route::get('/admn-pg/dashboard', [AdminController::class, 'index']);
 
