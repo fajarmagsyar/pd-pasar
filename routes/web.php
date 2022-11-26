@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,9 +17,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [ClientController::class, 'index']);
+Route::get('/admn-pg/login', [ClientController::class, 'login']);
 Route::get('/pasar/{id}', [ClientController::class, 'pasarDetail']);
+Route::get('/pasar/{pasar}/{produk}', [ClientController::class, 'detailProduk']);
 
 Route::get('/admn-pg/dashboard', [AdminController::class, 'index']);
+
+//AUTH
+Route::post('/auth/login', [AuthController::class, 'login']);
+Route::get('/auth/logout', [AuthController::class, 'logout']);
 
 //PASAR
 Route::get('/admn-pg/pasar', [AdminController::class, 'pasar']);
@@ -36,6 +43,8 @@ Route::get('/admn-pg/produk/{id}/edit', [AdminController::class, 'produkEdit']);
 Route::post('/admn-pg/produk/{id}/edit', [AdminController::class, 'produkUpdate']);
 Route::get('/admn-pg/produk/{id}/hapus', [AdminController::class, 'produkHapus']);
 
+Route::get('/admn-pg/produk/{id}/tambah-harga', [AdminController::class, 'tambahHarga']);
+Route::post('/admn-pg/produk/{id}/tambah-harga', [AdminController::class, 'hargaTambahStore']);
 
 //harga
 Route::get('/admn-pg/harga', [AdminController::class, 'harga']);

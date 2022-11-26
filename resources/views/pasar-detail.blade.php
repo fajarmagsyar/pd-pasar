@@ -25,6 +25,9 @@
 </head>
 
 <body>
+    @php
+        use App\Models\produk;
+    @endphp
     <div class="container-scroller">
         <!-- partial -->
         <div class="main-panel mx-auto">
@@ -38,14 +41,14 @@
                                     <span style="opacity: 0.5">Kota Kupang</span>
                                 </h4>
                                 <div class="">
-                                    <div class="btn-wrapper">
+                                    {{-- <div class="btn-wrapper">
                                         <a href="#" class="btn btn-otline-dark align-items-center"><i
                                                 class="icon-share"></i> Share</a>
                                         <a href="#" class="btn btn-otline-dark"><i class="icon-printer"></i>
                                             Print</a>
                                         <a href="#" class="btn btn-primary text-white me-0"><i
                                                 class="icon-download"></i> Export</a>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="tab-content tab-content-basic mb-4">
@@ -87,56 +90,38 @@
                                                                 <th>Stn.</th>
                                                                 <th>H. Kemarin</th>
                                                                 <th>H. Saat ini</th>
-                                                                <th>Perubahan (%)</th>
+                                                                <th class="text-center">Perubahan (%)</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             @foreach ($rows as $no => $r)
                                                                 <tr>
                                                                     <td>
-                                                                        <div class="form-check form-check-flat mt-0">
-                                                                            <label class="form-check-label">
-                                                                                <input type="checkbox"
-                                                                                    class="form-check-input"
-                                                                                    aria-checked="false"><i
-                                                                                    class="input-helper"></i></label>
-                                                                        </div>
+                                                                        {{ $no = $no + 1 }}
                                                                     </td>
                                                                     <td>
-                                                                        <div class="d-flex ">
-                                                                            <img src="images/faces/face1.jpg"
-                                                                                alt="">
-                                                                            <div>
-                                                                                <h6>Brandon Washington</h6>
-                                                                                <p>Head admin</p>
-                                                                            </div>
-                                                                        </div>
+                                                                        <a
+                                                                            href="/pasar/{{ $row->pasar_id }}/{{ $r->produk_id }}"><strong>{{ $r->nama_produk }}</strong></a>
                                                                     </td>
                                                                     <td>
-                                                                        <h6>Company name 1</h6>
-                                                                        <p>company type</p>
+                                                                        <h6>{{ $r->satuan }}</h6>
                                                                     </td>
                                                                     <td>
-                                                                        <div>
-                                                                            <div
-                                                                                class="d-flex justify-content-between align-items-center mb-1 max-width-progress-wrap">
-                                                                                <p class="text-success">79%
-                                                                                </p>
-                                                                                <p>85/162</p>
-                                                                            </div>
-                                                                            <div class="progress progress-md">
-                                                                                <div class="progress-bar bg-success"
-                                                                                    role="progressbar"
-                                                                                    style="width: 85%"
-                                                                                    aria-valuenow="25" aria-valuemin="0"
-                                                                                    aria-valuemax="100">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+                                                                        Rp.
+                                                                        {{ produk::checkHargaKemarin($r->produk_id) }},-
                                                                     </td>
                                                                     <td>
-                                                                        <div class="badge badge-opacity-warning">
-                                                                            In progress</div>
+                                                                        Rp.
+                                                                        {{ produk::checkHargaSekarang($r->produk_id) }},-
+                                                                    </td>
+                                                                    <td class="text-center align-middle">
+                                                                        @php
+                                                                            $selisih = produk::checkHargaSekarang($r->pasar_id) === 0 ? 'Harga belum diupdate' : ((int) produk::checkHargaKemarin($r->produk_id) / (int) produk::checkHargaSekarang($r->produk_id) - 1) * 100 * -1;
+                                                                        @endphp
+                                                                        <i style="font-size: 20px"
+                                                                            class="mdi {{ $selisih > 0 ? 'mdi-chevron-triple-up text-success' : 'mdi-chevron-triple-down text-danger' }}"></i>
+                                                                        <strong> {{ $selisih }}</strong>
+                                                                        %
                                                                     </td>
                                                                 </tr>
                                                             @endforeach

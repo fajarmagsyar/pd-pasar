@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pasar;
+use App\Models\PerubahanHarga;
 use App\Models\produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -23,7 +24,7 @@ class AdminController extends Controller
         return view('admin.pasar.index', [
             'title' => 'Data Pasar | SODAMOLEK',
             'active' => 'pasar',
-            'rows' => Pasar::get(),
+            'rows' => Pasar::whereNull('role')->get(),
         ]);
     }
     public function produk()
@@ -103,7 +104,7 @@ class AdminController extends Controller
         return view('admin.produk.tambah', [
             'title' => 'Tambah Data Produk | SODAMOLEK',
             'active' => 'produk',
-            
+            'pasar' => Pasar::get(),
         ]);
     }
 
@@ -114,9 +115,23 @@ class AdminController extends Controller
             'merk' => $request->input('merk'),
             'satuan' => $request->input('satuan'),
             'keterangan' => $request->input('keterangan'),
-            ];
+        ];
 
-        produk::create($data);
+        // dd($request->input('pasar'));
+
+        $input = produk::create($data)->getAttributes();
+
+
+        foreach ($request->input('pasar') as $p) {
+
+            $detail = [
+                'harga' => $request->input('harga'),
+                'produk_id' => $input['produk_id'],
+                'pasar_id' => $p,
+            ];
+            PerubahanHarga::create($detail);
+        }
+
 
         return redirect('/admn-pg/produk')->with('success', 'Input data berhasil');
     }
@@ -144,5 +159,39 @@ class AdminController extends Controller
     {
         produk::destroy($id);
         return redirect('/admn-pg/produk')->with('success', 'Input data dihapus');
+    }
+
+    public function tambahHarga($id, produk $prod)
+    {
+        $produk = produk::find($id);
+        $isChecked = $prod->checkHariIni($id);
+        $harga = [
+            'kemarin' => $prod->checkHargaKemarin($id),
+            'sekarang' => $prod->checkHargaSekarang($id),
+        ];
+        return view('admin.produk.harga', [
+            'title' => 'Data Produk | SODAMOLEK',
+            'active' => 'produk',
+            'rows' => produk::get(),
+            'isChecked' => $isChecked,
+            'produk' => $produk,
+            'harga' => $harga,
+            'pasar' => Pasar::get(),
+        ]);
+    }
+    public function hargaTambahStore(Request $request, $id)
+    {
+        foreach ($request->input('pasar') as $p) {
+
+            $detail = [
+                'harga' => $request->input('harga'),
+                'produk_id' => $id,
+                'pasar_id' => $p,
+            ];
+            PerubahanHarga::create($detail);
+        }
+
+
+        return redirect('admn-pg/produk/' . $id . '/tambah-harga')->with('success', 'Input data berhasil');
     }
 }

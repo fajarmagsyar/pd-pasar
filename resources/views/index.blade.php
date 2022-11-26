@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Star Admin2 </title>
+    <title>{{ $title }} </title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="/assets/vendors/feather/feather.css">
     <link rel="stylesheet" href="/assets/vendors/mdi/css/materialdesignicons.min.css">
@@ -25,6 +25,10 @@
 </head>
 
 <body>
+
+    @php
+        use App\Models\produk;
+    @endphp
     <div class="container-scroller">
         <!-- partial -->
         <div class="main-panel mx-auto">
@@ -38,14 +42,6 @@
                                     <span style="opacity: 0.5">Kota Kupang</span>
                                 </h4>
                                 <div class="">
-                                    <div class="btn-wrapper">
-                                        <a href="#" class="btn btn-otline-dark align-items-center"><i
-                                                class="icon-share"></i> Share</a>
-                                        <a href="#" class="btn btn-otline-dark"><i class="icon-printer"></i>
-                                            Print</a>
-                                        <a href="#" class="btn btn-primary text-white me-0"><i
-                                                class="icon-download"></i> Export</a>
-                                    </div>
                                 </div>
                             </div>
                             <div class="tab-content tab-content-basic mb-4">
@@ -59,17 +55,34 @@
                                     <div class="row shadow-sm mt-4"
                                         style="background-color: white; border-radius: 30px">
                                         <div class="col-sm-12 p-4">
-
                                             <div
                                                 class="statistics-details d-flex align-items-center justify-content-between my-auto mx-auto">
-                                                <div>
-                                                    <p class="statistics-title">Bounce Rate</p>
-                                                    <h3 class="rate-percentage">32.53%</h3>
-                                                    <p class="text-danger d-flex"><i
-                                                            class="mdi mdi-menu-down"></i><span>-0.5%</span></p>
-                                                </div>
-                                            </div>
+                                                @foreach ($harga as $h)
+                                                    <div class="mx-4">
+                                                        <p class="statistics-title">{{ $h->nama_produk }}</p>
+                                                        <span style="font-size: 12px" class="text-muted">H. Kemarin: Rp.
+                                                            {{ produk::checkHargaKemarin($h->produk_id) }}</span>
+                                                        <h3 class="rate-percentage">
+                                                            Rp.{{ produk::checkHargaSekarang($h->produk_id) }}
+                                                            <span class="text-muted"
+                                                                style="font-size: 12px">/{{ $h->satuan }}</span>
+                                                        </h3>
+                                                        @php
+                                                            $selisih = produk::checkHargaKemarin($h->pasar_id) === 0 ? 'Harga belum diupdate' : ((int) produk::checkHargaKemarin($h->produk_id) / (int) produk::checkHargaSekarang($h->produk_id) - 1) * 100 * -1;
+                                                        @endphp
 
+                                                        @if ($selisih > 0)
+                                                            <p class="text-success d-flex"><i class="mdi mdi-menu-up">
+                                                                @else
+                                                                    <p class="text-danger d-flex"><i
+                                                                            class="mdi mdi-menu-down">
+                                                        @endif
+                                                        </i><span>
+                                                            <strong> {{ $selisih }}</strong> %
+                                                        </span></p>
+                                                    </div>
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
 

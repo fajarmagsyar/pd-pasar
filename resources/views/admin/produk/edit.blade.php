@@ -43,7 +43,9 @@
                                                         <div class="mb-3">
                                                             <label for="nama_produk" class="form-label">
                                                                 Merek
-                                                            <textarea required name="merk" class="form-control" id="">{{ $w->merk }}</textarea>
+                                                            </label>
+                                                            <input type="text" name="merk" class="form-control"
+                                                                required value="{{ $w->merk }}">
                                                         </div>
                                                     </div>
 
@@ -62,8 +64,8 @@
                                                             <label for="keterangan" class="form-label">
                                                                 Keterangan
                                                             </label>
-                                                            <input type="keterangan" value="{{ $w->keterangan }}" name="keterangan"
-                                                                class="form-control" id="email">
+                                                            <input type="keterangan" value="{{ $w->keterangan }}"
+                                                                name="keterangan" class="form-control" id="email">
                                                         </div>
                                                     </div>
                                                 </div>

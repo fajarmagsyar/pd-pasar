@@ -17,12 +17,6 @@
                                                     Daftar pasar yang ada di Kota Kupang.
                                                 </p>
                                             </div>
-                                            <div>
-                                                <a class="btn btn-primary btn-lg text-white mb-0 me-0"
-                                                    href="/admn-pg/produk/tambah"><i class="mdi mdi-account-plus"></i>Tambah
-                                                    Data
-                                                    {{ ucwords($active) }}</a>
-                                            </div>
                                         </div>
 
                                         <div class="mt-4">
@@ -42,18 +36,18 @@
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
                                                             <label for="nama_produk" class="form-label">
-                                                                Merek
+                                                                Merk
                                                             </label>
-                                                            <textarea name="merk" class="form-control" id="" cols="30" rows="5"></textarea>
+                                                            <input type="text" name="merk" class="form-control">
                                                         </div>
                                                     </div>
 
                                                     <div class="col-lg-6">
                                                         <div class="mb-3">
-                                                            <label for=satuan" class="form-label">
-                                                               Satuan
+                                                            <label for="satuan" class="form-label">
+                                                                Satuan
                                                             </label>
-                                                            <input type="number" name="satuan" class="form-control"
+                                                            <input type="text" name="satuan" class="form-control"
                                                                 id="satuan">
                                                         </div>
                                                     </div>
@@ -68,7 +62,36 @@
                                                         </div>
                                                     </div>
 
-                                                    
+                                                    <div class="col-lg-12">
+                                                        <label for="telp" class="form-label">
+                                                            Harga
+                                                        </label>
+                                                        <div class="input-group mb-3">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text" id="basic-addon1">Rp.</span>
+                                                            </div>
+                                                            <input type="number" class="form-control"
+                                                                placeholder="Contoh: 20000" name="harga"
+                                                                aria-label="Username" aria-describedby="basic-addon1">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-12">
+                                                        <label for="telp" class="form-label">
+                                                            Produk Untuk:
+                                                        </label>
+                                                        <div class="mb-3">
+                                                            @foreach ($pasar as $r)
+                                                                <span
+                                                                    class="badge bg-secondary rounded-pill text-white p-3">
+                                                                    <input type="checkbox" value="{{ $r->pasar_id }}"
+                                                                        checked name="pasar[]">
+                                                                    {{ $r->nama_pasar }}</span>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+
+
                                                 </div>
 
                                                 <div class="col-lg-12">

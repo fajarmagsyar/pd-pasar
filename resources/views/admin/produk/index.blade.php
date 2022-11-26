@@ -1,5 +1,8 @@
 @extends('admin.layout')
 @section('content')
+    @php
+        use App\Models\produk;
+    @endphp
     <!-- partial -->
     <div class="main-panel">
         <div class="content-wrapper">
@@ -32,7 +35,7 @@
                                                             <strong>#</strong>
                                                         </th>
                                                         <th>Nama Produk</th>
-                                                        <th>Merek</th>
+                                                        <th>Merk</th>
                                                         <th>Satuan</th>
                                                         <th>Keterangan</th>
                                                         <th class="text-center" style="font-size: 18px"><i
@@ -48,16 +51,16 @@
                                                                     {{ $no = $no + 1 }}
                                                                 </div>
                                                             </td>
-                                                           <td>
-                                                                    {{ $w->nama_produk }}
+                                                            <td>
+                                                                {{ $w->nama_produk }}
                                                             </td>
                                                             <td>
-                                                                {{$w->merk}}
+                                                                {{ $w->merk }}
                                                             </td>
                                                             <td>
-                                                                {{$w->satuan}}
-                                                            </td>  
-                                                           <td>
+                                                                {{ $w->satuan }}
+                                                            </td>
+                                                            <td>
                                                                 {{ $w->keterangan }}
                                                             </td>
                                                             <td class="text-center">
@@ -67,6 +70,10 @@
                                                                 <a class="btn btn-danger"
                                                                     href="/admn-pg/produk/{{ $w->produk_id }}/hapus"
                                                                     onclick="return confirm('Anda yakin?')">Hapus</a>
+                                                                <br>
+                                                                <a class="btn btn-info"
+                                                                    href="/admn-pg/produk/{{ $w->produk_id }}/tambah-harga">
+                                                                    Harga Harian</a>
                                                             </td>
                                                         </tr>
                                                     @endforeach
