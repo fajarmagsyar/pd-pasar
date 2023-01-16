@@ -37,10 +37,33 @@
                                                 </tr>
                                                 <tr>
                                                     <th>Harga Kemarin</th>
-                                                    <td>{{ $harga['kemarin'] }}</td>
+                                                    <td>
+                                                        @canany(['pasar'])
+                                                            {{ $harga['kemarin'] }}
+                                                        @endcanany
+                                                        @canany(['admin'])
+                                                            <ul>
+                                                                @foreach ($harga['kemarin'] as $r)
+                                                                    <li>{{ $r->nama_pasar }}: {{ $r->harga }}</li>
+                                                                @endforeach
+                                                            </ul>
+                                                        @endcanany
+
+                                                    </td>
 
                                                     <th>Harga Sekarang</th>
-                                                    <td>{{ $harga['sekarang'] }}</td>
+                                                    <td>
+                                                        @canany(['pasar'])
+                                                            {{ $harga['sekarang'] }}
+                                                        @endcanany
+                                                        @canany(['admin'])
+                                                            <ul>
+                                                                @foreach ($harga['sekarang'] as $r)
+                                                                    <li>{{ $r->nama_pasar }}: {{ $r->harga }}</li>
+                                                                @endforeach
+                                                            </ul>
+                                                        @endcanany
+                                                    </td>
                                                 </tr>
                                             </table>
                                         </div>
@@ -84,12 +107,21 @@
                                                 <p class="card-subtitle card-subtitle-dash">
                                                     Centang untuk mengupgrade data di pasar tersebut
                                                 </p>
-                                                @foreach ($pasar as $r)
+                                                @canany(['admin'])
+                                                    @foreach ($pasar as $r)
+                                                        <span class="badge bg-secondary rounded-pill text-white p-2 mb-2 mr-3">
+                                                            <input type="checkbox" value="{{ $r->pasar_id }}" checked
+                                                                name="pasar[]">
+                                                            {{ $r->nama_pasar }}</span>
+                                                    @endforeach
+                                                @endcanany
+
+                                                @canany(['pasar'])
                                                     <span class="badge bg-secondary rounded-pill text-white p-2 mb-2 mr-3">
-                                                        <input type="checkbox" value="{{ $r->pasar_id }}" checked
-                                                            name="pasar[]">
-                                                        {{ $r->nama_pasar }}</span>
-                                                @endforeach
+                                                        <input type="checkbox" readonly value="{{ auth()->user()->pasar_id }}"
+                                                            checked name="pasar[]">
+                                                        {{ auth()->user()->nama_pasar }}</span>
+                                                @endcanany
 
                                                 <button href="/admn-pg/produk/{{ $produk->produk_id }}"
                                                     class="btn btn-primary text-white btn-lg w-100 mt-3 mb-2">

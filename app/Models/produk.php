@@ -20,28 +20,30 @@ class produk extends Model
      */
     protected $guarded = ['produk_id'];
 
-    public function checkHargaKemarin($produk_id)
+    public function checkHargaKemarin($produk_id, $pasar_id)
     {
         $yest = Carbon::now()->subDays(1);
         $q = PerubahanHarga::where('produk_id', $produk_id)
+            ->where('pasar_id', $pasar_id)
             ->whereDate('created_at', $yest)
             ->orderBy('created_at', 'DESC')
             ->select('harga')->first();
 
-        $q == null ? $q = '-' : $q = number_format($q->harga);
+        $q == null ? $q = 0 : $q = number_format($q->harga);
 
         return $q;
     }
 
-    public function checkHargaSekarang($produk_id)
+    public function checkHargaSekarang($produk_id, $pasar_id)
     {
         $yest = Carbon::now();
         $q = PerubahanHarga::where('produk_id', $produk_id)
+            ->where('pasar_id', $pasar_id)
             ->whereDate('created_at', $yest)
             ->orderBy('created_at', 'DESC')
             ->select('harga')->first();
 
-        $q == null ? $q = '-' : $q = number_format($q->harga);
+        $q == null ? $q = 0 : $q = number_format($q->harga);
 
         return $q;
     }
@@ -53,5 +55,21 @@ class produk extends Model
             ->whereDate('created_at', $yest)
             ->orderBy('created_at', 'DESC')
             ->count() >= 1;
+    }
+
+    public function checkHargaPerPasar($produk_id)
+    {
+        if (auth()->user()->role == 'admin') {
+            return 'admin';
+        } else {
+            $yest = Carbon::now();
+            $q = PerubahanHarga::where('produk_id', $produk_id)
+                ->whereDate('created_at', $yest)
+                ->where('perubahan_harga.pasar_id', auth()->user()->pasar_id)
+                ->orderBy('created_at', 'DESC')
+                ->select('harga')->exists();
+
+            return $q;
+        }
     }
 }

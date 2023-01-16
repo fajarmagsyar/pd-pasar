@@ -23,6 +23,7 @@
     <!-- endinject -->
     <link rel="shortcut icon" href="/assets/images/favicon.png" />
 </head>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <body>
 
@@ -30,6 +31,17 @@
         use App\Models\produk;
     @endphp
     <div class="container-scroller">
+
+        @if (session()->has('error'))
+            <script>
+                Swal.fire({
+                    title: 'Gagal',
+                    text: "{{ session('error') }}",
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                })
+            </script>
+        @endif
         <!-- partial -->
         <div class="main-panel mx-auto">
             <div class="content-wrapper shadow" style="border-radius: 30px">
@@ -47,10 +59,26 @@
                             <div class="tab-content tab-content-basic mb-4">
                                 <div class="tab-pane fade show active" id="overview" role="tabpanel"
                                     aria-labelledby="overview">
-                                    <div class="text-center">
-                                        <h4 class="mb-1"><strong>Harga Terbaru</strong></h4>
-                                        <span class="text-muted mb-4">Harga pasar yang terkini dan baru saja
-                                            dirubah</span>
+                                    <div class="row">
+                                        <div class="col-sm-6 mb-3">
+                                            <h4 class="mb-1"><strong>Produk Terupdate</strong></h4>
+                                            <span class="text-muted mb-4">
+                                                Harga pasar yang terkini dan baru saja dirubah
+                                            </span>
+                                        </div>
+
+                                        <div class="col-sm-6 mb-3">
+                                            <span class="float-end">
+                                                <a href="https://sodamolekv2.kupangkota.go.id"
+                                                    style="text-decoration: none">
+                                                    <p class="text-xxs text-muted mb-0"><i
+                                                            class="mdi mdi-chevron-left"></i>
+                                                        Kembali ke</p>
+                                                    <b>SODAMOLEK <span class="text-danger"
+                                                            style="font-size: 10px">V2.0</span></b>
+                                                </a>
+                                            </span>
+                                        </div>
                                     </div>
                                     <div class="row shadow-sm mt-4"
                                         style="background-color: white; border-radius: 30px">
@@ -61,31 +89,42 @@
                                                     <div class="mx-4">
                                                         <p class="statistics-title">{{ $h->nama_produk }}</p>
                                                         <span style="font-size: 12px" class="text-muted">H. Kemarin: Rp.
-                                                            {{ produk::checkHargaKemarin($h->produk_id) }}</span>
+                                                            {{ produk::checkHargaKemarin($h->produk_id, $h->pasar_id) }}</span>
                                                         <h3 class="rate-percentage">
-                                                            Rp.{{ produk::checkHargaSekarang($h->produk_id) }}
+                                                            Rp.{{ produk::checkHargaSekarang($h->produk_id, $h->pasar_id) }}
                                                             <span class="text-muted"
                                                                 style="font-size: 12px">/{{ $h->satuan }}</span>
                                                         </h3>
                                                         @php
-                                                            $selisih = produk::checkHargaKemarin($h->pasar_id) === 0 ? 'Harga belum diupdate' : ((int) produk::checkHargaKemarin($h->produk_id) / (int) produk::checkHargaSekarang($h->produk_id) - 1) * 100 * -1;
+                                                            $selisih = produk::checkHargaSekarang($h->produk_id, $h->pasar_id) == '-' ? 'Harga belum diupdate' : ((int) produk::checkHargaKemarin($h->produk_id, $h->pasar_id) / (int) produk::checkHargaSekarang($h->produk_id, $h->pasar_id) - 1) * 100 * -1 . ' %';
                                                         @endphp
 
                                                         @if ($selisih > 0)
-                                                            <p class="text-success d-flex"><i class="mdi mdi-menu-up">
-                                                                @else
-                                                                    <p class="text-danger d-flex"><i
-                                                                            class="mdi mdi-menu-down">
+                                                            <p class="text-danger d-flex"><i class="mdi mdi-menu-up">
+
+                                                                </i><span>
+                                                                    <strong> {{ $selisih }}</strong>
+                                                                </span></p>
+                                                        @elseif ($selisih == 0)
+                                                            <p class="text-secondary d-flex">
+                                                                <i class="mdi mdi-dots-horizontal">
+                                                                </i><span>
+                                                                    <strong> {{ $selisih }}</strong>
+                                                                </span>
+                                                            </p>
+                                                        @else
+                                                            <p class="text-success d-flex">
+                                                                <i class="mdi mdi-menu-down">
+                                                                </i><span>
+                                                                    <strong> {{ $selisih }}</strong>
+                                                                </span>
+                                                            </p>
                                                         @endif
-                                                        </i><span>
-                                                            <strong> {{ $selisih }}</strong> %
-                                                        </span></p>
                                                     </div>
                                                 @endforeach
                                             </div>
                                         </div>
                                     </div>
-
 
                                     <div class="text-center mt-4">
                                         <h4 class="mb-1"><strong>Pilih Pasar</strong></h4>
@@ -94,7 +133,6 @@
                                     </div>
 
                                     <div class="row flex-grow mt-4">
-
                                         @foreach ($rows as $r)
                                             <div class="col-lg-6 grid-margin stretch-card mx-auto">
                                                 <div class="card card-rounded"
@@ -115,7 +153,6 @@
                                                 </div>
                                             </div>
                                         @endforeach
-
                                     </div>
                                 </div>
                             </div>
@@ -130,8 +167,8 @@
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
                 <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Powered
                     by
-                    <a href="https://www.bootstrapdash.com/" target="_blank">Diskominfo
-                        Kota Kupang</a>, made with the deepest ❤</span>
+                    <a href="#" target="_blank">Diskominfo
+                        Kota Kupang</a></span>
                 <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hak
                     Cipta
                     © {{ date('Y') }}.</span>

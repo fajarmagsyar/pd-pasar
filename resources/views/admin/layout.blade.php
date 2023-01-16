@@ -22,9 +22,33 @@
     <link rel="stylesheet" href="/assets/css/vertical-layout-light/style.css">
     <!-- endinject -->
     <link rel="shortcut icon" href="/assets/images/favicon.png" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
+
+    @if (session()->has('error'))
+        <script>
+            Swal.fire({
+                title: 'Gagal',
+                text: "{{ session('error') }}",
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })
+        </script>
+    @endif
+
+    @if (session()->has('success'))
+        <script>
+            Swal.fire({
+                title: 'Berhasil',
+                text: "{{ session('success') }}",
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })
+        </script>
+    @endif
+
     <div class="container-scroller">
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
@@ -37,10 +61,11 @@
                 </div>
                 <div>
                     <a class="navbar-brand brand-logo" href="index.html">
-                        <img src="/assets/images/logo.svg" alt="logo" />
+                        Inflasi Harga <br>
+                        <span class="text-muted" style="font-size: 14px">Kota Kupang</span>
                     </a>
                     <a class="navbar-brand brand-logo-mini" href="index.html">
-                        <img src="/assets/images/logo-mini.svg" alt="logo" />
+                        PD
                     </a>
                 </div>
             </div>
@@ -52,32 +77,10 @@
                     <li class="nav-item dropdown d-none d-lg-block user-dropdown">
                         <a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Selamat datang, <strong>Admin</strong>
-                            <img class="img-xs rounded-circle" src="/assets/images/faces/face8.jpg" alt="Profile image">
+                            Selamat datang, <strong>{{ auth()->user()->nama_pasar }}</strong>
 
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
-                            <div class="dropdown-header text-center">
-                                <img class="img-md rounded-circle" src="/assets/images/faces/face8.jpg"
-                                    alt="Profile image">
-                                <p class="mb-1 mt-3 font-weight-semibold">Allen Moreno</p>
-                                <p class="fw-light text-muted mb-0">allenmoreno@gmail.com</p>
-                            </div>
-                            <a class="dropdown-item"><i
-                                    class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My
-                                Profile <span class="badge badge-pill badge-danger">1</span></a>
-                            <a class="dropdown-item"><i
-                                    class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i>
-                                Messages</a>
-                            <a class="dropdown-item"><i
-                                    class="dropdown-item-icon mdi mdi-calendar-check-outline text-primary me-2"></i>
-                                Activity</a>
-                            <a class="dropdown-item"><i
-                                    class="dropdown-item-icon mdi mdi-help-circle-outline text-primary me-2"></i>
-                                FAQ</a>
-                            <a class="dropdown-item"><i
-                                    class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out</a>
-                        </div>
+
                     </li>
                 </ul>
                 <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
@@ -119,8 +122,8 @@
                             role="tab" aria-controls="todo-section" aria-expanded="true">TO DO LIST</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="chats-tab" data-bs-toggle="tab" href="#chats-section"
-                            role="tab" aria-controls="chats-section">CHATS</a>
+                        <a class="nav-link" id="chats-tab" data-bs-toggle="tab" href="#chats-section" role="tab"
+                            aria-controls="chats-section">CHATS</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="setting-content">
@@ -285,12 +288,14 @@
                         </a>
                     </li>
                     <li class="nav-item nav-category">Data Pasar & Harga</li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admn-pg/pasar">
-                            <i class="menu-icon mdi mdi-cart-minus"></i>
-                            <span class="menu-title">Pasar</span>
-                        </a>
-                    </li>
+                    @canany(['admin'])
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admn-pg/pasar">
+                                <i class="menu-icon mdi mdi-cart-minus"></i>
+                                <span class="menu-title">Pasar</span>
+                            </a>
+                        </li>
+                    @endcanany
                     <li class="nav-item">
                         <a class="nav-link" href="/admn-pg/produk">
                             <i class="menu-icon mdi mdi-package-variant-closed"></i>
@@ -298,9 +303,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admn-pg/harga">
-                            <i class="menu-icon mdi mdi-cash-multiple"></i>
-                            <span class="menu-title">Data Harga</span>
+                        <a class="nav-link text-danger" href="/admn-pg/panic-button">
+                            <i class="menu-icon mdi mdi-cursor-default-click"></i>
+                            <span class="menu-title">Panic Button!</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auth/logout">
+                            <i class="menu-icon mdi mdi-logout"></i>
+                            <span class="menu-title">Logout</span>
                         </a>
                     </li>
                 </ul>

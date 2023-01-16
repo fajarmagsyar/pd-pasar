@@ -52,7 +52,8 @@
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                {{ $w->nama_produk }}
+                                                                <span
+                                                                    class="badge bg-{{ produk::checkHargaPerPasar($w->produk_id) == true ? 'success' : 'danger' }}">{{ $w->nama_produk }}</span>
                                                             </td>
                                                             <td>
                                                                 {{ $w->merk }}

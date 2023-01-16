@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="home-tab">
-                        <div class="d-sm-flex align-items-center justify-content-between border-bottom">
+                        {{-- <div class="d-sm-flex align-items-center justify-content-between border-bottom">
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active ps-0" id="home-tab" data-bs-toggle="tab" href="#overview"
@@ -35,11 +35,10 @@
                                         Export</a>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="tab-content tab-content-basic">
-                            <div class="tab-pane fade show active" id="overview" role="tabpanel"
-                                aria-labelledby="overview">
-                                <div class="row">
+                            <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview">
+                                {{-- <div class="row">
                                     <div class="col-sm-12">
                                         <div class="statistics-details d-flex align-items-center justify-content-between">
                                             <div>
@@ -167,10 +166,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="row">
-                                    <div class="col-lg-8 d-flex flex-column">
-                                        <div class="row flex-grow">
+                                    <div class="col-lg-12 d-flex flex-column">
+                                        {{-- <div class="row flex-grow">
                                             <div class="col-12 grid-margin stretch-card">
                                                 <div class="card card-rounded">
                                                     <div class="card-body">
@@ -225,25 +224,44 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="row flex-grow">
-                                            <div class="col-12 grid-margin stretch-card">
+                                            <div class="col-lg-8 grid-margin stretch-card">
                                                 <div class="card card-rounded table-darkBGImg">
                                                     <div class="card-body">
                                                         <div class="col-sm-8">
                                                             <h3 class="text-white upgrade-info mb-0">
-                                                                Enhance your <span class="fw-bold">Campaign</span> for
-                                                                better
-                                                                outreach
+                                                                <span class="fw-bold">Selamat Datang</span> <br>
+                                                                admin inflasi harga pasar.
                                                             </h3>
-                                                            <a href="#" class="btn btn-info upgrade-btn">Upgrade
-                                                                Account!</a>
+                                                            <a href="/admn-pg/produk"
+                                                                class="btn btn-info upgrade-btn">Tambahkan
+                                                                Harga Harian</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 grid-margin stretch-card">
+                                                <div class="card card-rounded" style="background-color: #1E283D">
+                                                    <div class="card-body">
+                                                        <div class="col-sm-12">
+                                                            <div class="text-center text-white">
+                                                                <b>
+                                                                    <h1>
+                                                                        <i class="mdi mdi-clock"></i>
+                                                                        <div id="DigitalCLOCK" class="clock"
+                                                                            onload="showTime()">
+                                                                        </div>
+                                                                    </h1>
+                                                                    {{ date('D, d-m-Y') }}
+                                                                </b>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row flex-grow">
+                                        {{-- <div class="row flex-grow">
                                             <div class="col-12 grid-margin stretch-card">
                                                 <div class="card card-rounded">
                                                     <div class="card-body">
@@ -316,8 +334,7 @@
                                                                                     <div class="progress-bar bg-success"
                                                                                         role="progressbar"
                                                                                         style="width: 85%"
-                                                                                        aria-valuenow="25"
-                                                                                        aria-valuemin="0"
+                                                                                        aria-valuenow="25" aria-valuemin="0"
                                                                                         aria-valuemax="100">
                                                                                     </div>
                                                                                 </div>
@@ -526,8 +543,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row flex-grow">
+                                        </div> --}}
+                                        {{-- <div class="row flex-grow">
                                             <div class="col-md-6 col-lg-6 grid-margin stretch-card">
                                                 <div class="card card-rounded">
                                                     <div class="card-body card-rounded">
@@ -609,8 +626,7 @@
                                             <div class="col-md-6 col-lg-6 grid-margin stretch-card">
                                                 <div class="card card-rounded">
                                                     <div class="card-body">
-                                                        <div
-                                                            class="d-flex align-items-center justify-content-between mb-3">
+                                                        <div class="d-flex align-items-center justify-content-between mb-3">
                                                             <h4 class="card-title card-title-dash">Activities
                                                             </h4>
                                                             <p class="mb-0">20 finished, 5 remaining</p>
@@ -683,8 +699,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-4 d-flex flex-column">
+                                    </div> --}}
+                                        {{-- <div class="col-lg-4 d-flex flex-column">
                                         <div class="row flex-grow">
                                             <div class="col-12 grid-margin stretch-card">
                                                 <div class="card card-rounded">
@@ -954,6 +970,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div> --}}
                                     </div>
                                 </div>
                             </div>
@@ -961,7 +978,36 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
-    @endsection
+            <!-- content-wrapper ends -->
+            <!-- partial:partials/_footer.html -->
+
+            <script>
+                function showTime() {
+                    var date = new Date();
+                    var h = date.getHours();
+                    var m = date.getMinutes();
+                    var s = date.getSeconds();
+                    var session = "AM";
+
+                    if (h == 0) {
+                        h = 12;
+                    }
+
+                    if (h > 12) {
+                        h = h - 12;
+                        session = "PM";
+                    }
+
+                    h = (h < 10) ? "0" + h : h;
+                    m = (m < 10) ? "0" + m : m;
+                    s = (s < 10) ? "0" + s : s;
+
+                    var time = h + ":" + m + ":" + s + " " + session;
+                    document.getElementById("DigitalCLOCK").innerText = time;
+                    document.getElementById("DigitalCLOCK").textContent = time;
+
+                    setTimeout(showTime, 1000);
+                }
+                showTime();
+            </script>
+        @endsection

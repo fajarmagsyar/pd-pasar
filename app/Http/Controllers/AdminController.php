@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pasar;
 use App\Models\PerubahanHarga;
 use App\Models\produk;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Produk as GlobalProduk;
@@ -24,7 +25,7 @@ class AdminController extends Controller
         return view('admin.pasar.index', [
             'title' => 'Data Pasar | SODAMOLEK',
             'active' => 'pasar',
-            'rows' => Pasar::whereNull('role')->get(),
+            'rows' => Pasar::where('role', '!=', 'admin')->get(),
         ]);
     }
     public function produk()
@@ -104,7 +105,7 @@ class AdminController extends Controller
         return view('admin.produk.tambah', [
             'title' => 'Tambah Data Produk | SODAMOLEK',
             'active' => 'produk',
-            'pasar' => Pasar::get(),
+            'pasar' => Pasar::where('role', '!=', 'admin')->get(),
         ]);
     }
 
@@ -165,10 +166,27 @@ class AdminController extends Controller
     {
         $produk = produk::find($id);
         $isChecked = $prod->checkHariIni($id);
-        $harga = [
-            'kemarin' => $prod->checkHargaKemarin($id),
-            'sekarang' => $prod->checkHargaSekarang($id),
-        ];
+
+        if (auth()->user()->role == 'admin') {
+            $q_kemarin = PerubahanHarga::join('pasar', 'perubahan_harga.pasar_id', 'pasar.pasar_id')
+                ->whereDate('perubahan_harga.created_at', Carbon::now()->subDays(1))
+                ->where('perubahan_harga.produk_id', $id)
+                ->get(['pasar.nama_pasar', 'perubahan_harga.*']);
+            $q_sekarang = PerubahanHarga::join('pasar', 'perubahan_harga.pasar_id', 'pasar.pasar_id')
+                ->whereDate('perubahan_harga.created_at', Carbon::now())
+                ->where('perubahan_harga.produk_id', $id)
+                ->get(['pasar.nama_pasar', 'perubahan_harga.*']);
+            $harga = [
+                'kemarin' => $q_kemarin,
+                'sekarang' => $q_sekarang
+            ];
+        } else {
+            $harga = [
+                'kemarin' => $prod->checkHargaKemarin($id, auth()->user()->pasar_id),
+                'sekarang' => $prod->checkHargaSekarang($id, auth()->user()->pasar_id),
+            ];
+        }
+
         return view('admin.produk.harga', [
             'title' => 'Data Produk | SODAMOLEK',
             'active' => 'produk',
@@ -176,7 +194,7 @@ class AdminController extends Controller
             'isChecked' => $isChecked,
             'produk' => $produk,
             'harga' => $harga,
-            'pasar' => Pasar::get(),
+            'pasar' => Pasar::where('role', '!=', 'admin')->get(),
         ]);
     }
     public function hargaTambahStore(Request $request, $id)
@@ -193,5 +211,13 @@ class AdminController extends Controller
 
 
         return redirect('admn-pg/produk/' . $id . '/tambah-harga')->with('success', 'Input data berhasil');
+    }
+
+    public function panicButton()
+    {
+        return view('admin.panic-button.panic-button', [
+            'title' => 'Panic Button | SODAMOLEK',
+            'active' => 'panic-button',
+        ]);
     }
 }

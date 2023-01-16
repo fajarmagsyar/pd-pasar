@@ -15,12 +15,13 @@ class ClientController extends Controller
     public function index()
     {
         $harga = PerubahanHarga::join('produk', 'produk.produk_id', 'perubahan_harga.produk_id')
-            ->groupBy(['produk.produk_id'])
+            ->groupBy(['produk.produk_id', 'perubahan_harga.pasar_id', 'perubahan_harga.created_at'])
             ->limit(4)
-            ->get(['produk.*']);
+            ->orderBy('perubahan_harga.created_at', 'DESC')
+            ->get(['produk.*', 'perubahan_harga.pasar_id']);
         return view('index', [
             'title' => 'Daftar Harga Pasar | Kota Kupang',
-            'rows' => Pasar::get(),
+            'rows' => Pasar::where('role', '!=', 'admin')->get(),
             'harga' => $harga,
         ]);
     }

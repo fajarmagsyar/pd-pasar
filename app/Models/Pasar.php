@@ -19,4 +19,10 @@ class Pasar extends Authenticatable
      * @var string[]
      */
     protected $guarded = ['pasar_id'];
+
+
+    static public function hasRole($role)
+    {
+        return Pasar::where('pasar_id', auth()->user()->pasar_id)->where('role', $role)->count() == 1;
+    }
 }

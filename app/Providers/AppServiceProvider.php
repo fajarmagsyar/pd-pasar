@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Pasar;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Gate::define('pasar', function (Pasar $users) {
+            return $users->hasRole('pasar');
+        });
+        Gate::define('admin', function (Pasar $users) {
+            return $users->hasRole('admin');
+        });
     }
 }

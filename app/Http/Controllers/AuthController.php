@@ -19,7 +19,7 @@ class AuthController extends Controller
             return redirect('/admn-pg/dashboard');
         }
 
-        return back()->with('error', 'Email atau password salah!');
+        return redirect('/admn-pg/login')->with('error', 'Email atau password salah!');
     }
     public function logout(Request $request)
     {

@@ -108,20 +108,40 @@
                                                                     </td>
                                                                     <td>
                                                                         Rp.
-                                                                        {{ produk::checkHargaKemarin($r->produk_id) }},-
+                                                                        {{ produk::checkHargaKemarin($r->produk_id, $row->pasar_id) }},-
                                                                     </td>
                                                                     <td>
                                                                         Rp.
-                                                                        {{ produk::checkHargaSekarang($r->produk_id) }},-
+                                                                        {{ produk::checkHargaSekarang($r->produk_id, $row->pasar_id) }},-
                                                                     </td>
                                                                     <td class="text-center align-middle">
                                                                         @php
-                                                                            $selisih = produk::checkHargaSekarang($r->pasar_id) === 0 ? 'Harga belum diupdate' : ((int) produk::checkHargaKemarin($r->produk_id) / (int) produk::checkHargaSekarang($r->produk_id) - 1) * 100 * -1;
+                                                                            $selisih = produk::checkHargaSekarang($r->produk_id, $row->pasar_id) == '-' ? 'Harga belum diupdate' : ((int) produk::checkHargaKemarin($r->produk_id, $row->pasar_id) / (int) produk::checkHargaSekarang($r->produk_id, $row->pasar_id) - 1) * 100 * -1 . ' %';
                                                                         @endphp
-                                                                        <i style="font-size: 20px"
-                                                                            class="mdi {{ $selisih > 0 ? 'mdi-chevron-triple-up text-success' : 'mdi-chevron-triple-down text-danger' }}"></i>
-                                                                        <strong> {{ $selisih }}</strong>
-                                                                        %
+                                                                        @if ($selisih > 0)
+                                                                            <p class="text-danger d-flex"><i
+                                                                                    class="mdi mdi-menu-up">
+                                                                                </i><span>
+                                                                                    <strong>
+                                                                                        {{ $selisih }}</strong>
+                                                                                </span></p>
+                                                                        @elseif ($selisih == 0)
+                                                                            <p class="text-secondary d-flex">
+                                                                                <i class="mdi mdi-dots-horizontal">
+                                                                                </i><span>
+                                                                                    <strong>
+                                                                                        {{ $selisih }}</strong>
+                                                                                </span>
+                                                                            </p>
+                                                                        @else
+                                                                            <p class="text-success d-flex">
+                                                                                <i class="mdi mdi-menu-down">
+                                                                                </i><span>
+                                                                                    <strong>
+                                                                                        {{ $selisih }}</strong>
+                                                                                </span>
+                                                                            </p>
+                                                                        @endif
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
@@ -145,8 +165,8 @@
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
                 <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Powered
                     by
-                    <a href="https://www.bootstrapdash.com/" target="_blank">Diskominfo
-                        Kota Kupang</a>, made with the deepest ❤</span>
+                    <a href="#" target="_blank">Diskominfo
+                        Kota Kupang</a></span>
                 <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hak
                     Cipta
                     © {{ date('Y') }}.</span>

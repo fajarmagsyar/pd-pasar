@@ -227,7 +227,11 @@
         <center>
             <img src="/assets/images/logo.png" style="max-width: 100px">
             <h4 style="color: white">PD PASAR | Admin</h4>
+            @if (session()->has('error'))
+                <h4 style="color: red">Email atau password salah!</h4>
+            @endif
         </center>
+
         <form action="/auth/login" method="POST" class="form login">
             @csrf
             <div class="form__field">
