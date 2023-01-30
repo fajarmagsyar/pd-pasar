@@ -7,7 +7,7 @@
                 <div class="col-sm-12">
                     <div class="home-tab">
                         <div class="row flex-grow">
-                            <div class="col-8 grid-margin stretch-card">
+                            <div class="col-lg-8 grid-margin stretch-card">
                                 <div class="card card-rounded">
                                     <div class="card-body">
                                         <div class="d-sm-flex justify-content-between align-items-start">
@@ -74,7 +74,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-4 grid-margin stretch-card">
+                            <div class="col-lg-4 grid-margin stretch-card">
                                 <div class="card card-rounded">
                                     <div class="card-body">
                                         <div class="d-sm-flex justify-content-between align-items-start">

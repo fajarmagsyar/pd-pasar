@@ -84,10 +84,11 @@
                                         style="background-color: white; border-radius: 30px">
                                         <div class="col-sm-12 p-4">
                                             <div
-                                                class="statistics-details d-flex align-items-center justify-content-between my-auto mx-auto">
+                                                class="statistics-details d-flex align-items-center justify-content-between my-auto mx-auto row">
                                                 @foreach ($harga as $h)
-                                                    <div class="mx-4">
-                                                        <p class="statistics-title">{{ $h->nama_produk }}</p>
+                                                    <div class="col-sm-2 mx-4">
+                                                        <p class="statistics-title"><b>{{ $h->nama_produk }}</b></p>
+                                                        <p class="statistics-title">{{ $h->nama_pasar }}</p>
                                                         <span style="font-size: 12px" class="text-muted">H. Kemarin: Rp.
                                                             {{ produk::checkHargaKemarin($h->produk_id, $h->pasar_id) }}</span>
                                                         <h3 class="rate-percentage">
