@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+//PDF EXPORT
+Route::get('/print/pdf/seluruh/{pasar_id}', [PdfController::class, 'seluruhPerPasar']);
 
 Route::get('/', [ClientController::class, 'index']);
 Route::get('/admn-pg/login', [ClientController::class, 'login']);
