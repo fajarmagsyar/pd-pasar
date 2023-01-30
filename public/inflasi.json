@@ -1,0 +1,34 @@
+[
+    {
+        "nama_pasar": "Pasar Oesapa",
+        "nama_produk": "Beras",
+        "merk": "Nona Kupang",
+        "satuan": "Kg",
+        "harga": "200000",
+        "keterangan": ""
+    },
+    {
+        "nama_pasar": "Pasar Inpres",
+        "nama_produk": "Telur Ayam Ras",
+        "merk": "Telur Makyus",
+        "satuan": "Kg",
+        "harga": "55000",
+        "keterangan": ""
+    },
+    {
+        "nama_pasar": "Pasar Oeba",
+        "nama_produk": "Minyak Goreng",
+        "merk": "Bimoli",
+        "satuan": "Liter",
+        "harga": "15000",
+        "keterangan": ""
+    },
+    {
+        "nama_pasar": "Pasar Oeba",
+        "nama_produk": "Minyak Goreng",
+        "merk": "Sania",
+        "satuan": "Liter",
+        "harga": "15500",
+        "keterangan": ""
+    }
+]
