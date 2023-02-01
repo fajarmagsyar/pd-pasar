@@ -28,19 +28,19 @@
 <body>
 
     @php
-        use App\Models\produk;
+    use App\Models\produk;
     @endphp
     <div class="container-scroller">
 
         @if (session()->has('error'))
-            <script>
-                Swal.fire({
+        <script>
+            Swal.fire({
                     title: 'Gagal',
                     text: "{{ session('error') }}",
                     icon: 'error',
                     confirmButtonText: 'Ok'
                 })
-            </script>
+        </script>
         @endif
         <!-- partial -->
         <div class="main-panel mx-auto">
@@ -86,42 +86,47 @@
                                             <div
                                                 class="statistics-details d-flex align-items-center justify-content-between my-auto mx-auto row">
                                                 @foreach ($harga as $h)
-                                                    <div class="col-sm-2 mx-4">
-                                                        <p class="statistics-title"><b>{{ $h->nama_produk }}</b></p>
-                                                        <p class="statistics-title">{{ $h->nama_pasar }}</p>
-                                                        <span style="font-size: 12px" class="text-muted">H. Kemarin: Rp.
-                                                            {{ produk::checkHargaKemarin($h->produk_id, $h->pasar_id) }}</span>
-                                                        <h3 class="rate-percentage">
-                                                            Rp.{{ produk::checkHargaSekarang($h->produk_id, $h->pasar_id) }}
-                                                            <span class="text-muted"
-                                                                style="font-size: 12px">/{{ $h->satuan }}</span>
-                                                        </h3>
-                                                        @php
-                                                            $selisih = produk::checkHargaSekarang($h->produk_id, $h->pasar_id) == '-' ? 'Harga belum diupdate' : ((int) produk::checkHargaKemarin($h->produk_id, $h->pasar_id) / (int) produk::checkHargaSekarang($h->produk_id, $h->pasar_id) - 1) * 100 * -1 . ' %';
-                                                        @endphp
+                                                <div class="col-sm-2 mx-4">
+                                                    <p class="statistics-title"><b>{{ $h->nama_produk }}</b></p>
+                                                    <p class="statistics-title">{{ $h->nama_pasar }}</p>
+                                                    <span style="font-size: 12px" class="text-muted">H. Kemarin: Rp.
+                                                        {{ produk::checkHargaKemarin($h->produk_id, $h->pasar_id)
+                                                        }}</span>
+                                                    <h3 class="rate-percentage">
+                                                        Rp.{{ produk::checkHargaSekarang($h->produk_id, $h->pasar_id) }}
+                                                        <span class="text-muted" style="font-size: 12px">/{{ $h->satuan
+                                                            }}</span>
+                                                    </h3>
+                                                    @php
+                                                    $selisih = produk::checkHargaSekarang($h->produk_id, $h->pasar_id)
+                                                    == '-' ? 'Harga belum diupdate' : ((int)
+                                                    produk::checkHargaKemarin($h->produk_id, $h->pasar_id) / (int)
+                                                    produk::checkHargaSekarang($h->produk_id, $h->pasar_id) - 1) * 100 *
+                                                    -1 . ' %';
+                                                    @endphp
 
-                                                        @if ($selisih > 0)
-                                                            <p class="text-danger d-flex"><i class="mdi mdi-menu-up">
+                                                    @if ($selisih > 0)
+                                                    <p class="text-danger d-flex"><i class="mdi mdi-menu-up">
 
-                                                                </i><span>
-                                                                    <strong> {{ $selisih }}</strong>
-                                                                </span></p>
-                                                        @elseif ($selisih == 0)
-                                                            <p class="text-secondary d-flex">
-                                                                <i class="mdi mdi-dots-horizontal">
-                                                                </i><span>
-                                                                    <strong> {{ $selisih }}</strong>
-                                                                </span>
-                                                            </p>
-                                                        @else
-                                                            <p class="text-success d-flex">
-                                                                <i class="mdi mdi-menu-down">
-                                                                </i><span>
-                                                                    <strong> {{ $selisih }}</strong>
-                                                                </span>
-                                                            </p>
-                                                        @endif
-                                                    </div>
+                                                        </i><span>
+                                                            <strong> {{ $selisih }}</strong>
+                                                        </span></p>
+                                                    @elseif ($selisih == 0)
+                                                    <p class="text-secondary d-flex">
+                                                        <i class="mdi mdi-dots-horizontal">
+                                                        </i><span>
+                                                            <strong> {{ $selisih }}</strong>
+                                                        </span>
+                                                    </p>
+                                                    @else
+                                                    <p class="text-success d-flex">
+                                                        <i class="mdi mdi-menu-down">
+                                                        </i><span>
+                                                            <strong> {{ $selisih }}</strong>
+                                                        </span>
+                                                    </p>
+                                                    @endif
+                                                </div>
                                                 @endforeach
                                             </div>
                                         </div>
@@ -132,27 +137,25 @@
                                         <span class="text-muted mb-4">Pilih untuk melihat harga lebih detail di setiap
                                             pasar Kota Kupang</span>
                                     </div>
-
                                     <div class="row flex-grow mt-4">
                                         @foreach ($rows as $r)
-                                            <div class="col-lg-6 grid-margin stretch-card mx-auto">
-                                                <div class="card card-rounded"
-                                                    style="
+                                        <div class="col-lg-6 grid-margin stretch-card mx-auto">
+                                            <div class="card card-rounded" style="
                                                 background: #1E283D url('/{{ $r->foto_pasar }}')
                                                     repeat-y right top;">
-                                                    <div class="card-body">
-                                                        <div class="col-sm-8">
-                                                            <h3 class="text-white upgrade-info mb-0">
-                                                                {{ $r->nama_pasar }}
-                                                            </h3>
-                                                            <a href="/pasar/{{ $r->pasar_id }}"
-                                                                class="btn btn-info upgrade-btn"><i
-                                                                    class="mdi mdi-finance"></i> Lihat
-                                                                Harga</a>
-                                                        </div>
+                                                <div class="card-body">
+                                                    <div class="col-sm-8">
+                                                        <h3 class="text-white upgrade-info mb-0">
+                                                            {{ $r->nama_pasar }}
+                                                        </h3>
+                                                        <a href="/pasar/{{ $r->pasar_id }}"
+                                                            class="btn btn-info upgrade-btn"><i
+                                                                class="mdi mdi-finance"></i> Lihat
+                                                            Harga</a>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
                                         @endforeach
                                     </div>
                                 </div>

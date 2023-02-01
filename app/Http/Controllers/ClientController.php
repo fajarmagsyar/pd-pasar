@@ -7,8 +7,6 @@ use App\Models\PerubahanHarga;
 use App\Models\produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class ClientController extends Controller
 {
@@ -22,7 +20,7 @@ class ClientController extends Controller
             ->get(['produk.*', 'perubahan_harga.pasar_id', 'pasar.nama_pasar']);
         return view('index', [
             'title' => 'Daftar Harga Pasar | Kota Kupang',
-            'rows' => Pasar::where('role', '!=', 'admin')->get(),
+            'rows' => Pasar::where('role', null)->get(),
             'harga' => $harga,
         ]);
     }
