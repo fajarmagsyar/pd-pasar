@@ -308,6 +308,14 @@
                             <span class="menu-title">Panic Button!</span>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admn-pg/laporan">
+                            <i class="menu-icon mdi mdi-file"></i>
+                            <span class="menu-title">Laporan</span>
+                        </a>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="/auth/logout">
                             <i class="menu-icon mdi mdi-logout"></i>

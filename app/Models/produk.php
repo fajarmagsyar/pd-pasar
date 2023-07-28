@@ -68,7 +68,6 @@ class produk extends Model
                 ->where('perubahan_harga.pasar_id', auth()->user()->pasar_id)
                 ->orderBy('created_at', 'DESC')
                 ->select('harga')->exists();
-
             return $q;
         }
     }
