@@ -19,6 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['middleware' => ['command-center']], function () {
+// Route::group(['middleware' => ['command-center']], function () {
     Route::get('/rekap-inflasi/{id}',  [RekapanInflasiControllerApi::class, 'index']);
-});
+// });

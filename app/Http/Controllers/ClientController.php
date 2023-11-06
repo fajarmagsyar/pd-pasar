@@ -7,7 +7,8 @@ use App\Models\PerubahanHarga;
 use App\Models\produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-
+use App\Exports\ExportProduk;
+use Maatwebsite\Excel\Facades\Excel;
 class ClientController extends Controller
 {
     public function index()
@@ -44,6 +45,7 @@ class ClientController extends Controller
         return view('pasar-detail', [
             'title' => $pasar->nama_pasar . ' | Kota Kupang',
             'row' => $pasar,
+            'id' => $id,
             'rows' => $perubahan,
         ]);
     }
@@ -68,5 +70,9 @@ class ClientController extends Controller
             'tgl' => $create,
             'harga' => $harga,
         ]);
+    }
+
+    public function exportProduk($id){
+        return Excel::download(new ExportProduk($id), 'produk.xlsx');
     }
 }

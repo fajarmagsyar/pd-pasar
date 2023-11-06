@@ -26,7 +26,7 @@
 
 <body>
     @php
-        use App\Models\produk;
+    use App\Models\produk;
     @endphp
     <div class="container-scroller">
         <!-- partial -->
@@ -57,8 +57,7 @@
                                     <div class="row flex-grow mt-4">
 
                                         <div class="col-lg-12 grid-margin stretch-card mx-auto">
-                                            <div class="card card-rounded"
-                                                style="
+                                            <div class="card card-rounded" style="
                                                 background: #1E283D url('/{{ $row->foto_pasar }}')
                                                     repeat-y right top;">
                                                 <div class="card-body">
@@ -74,6 +73,9 @@
                                                         <a href="https://www.google.com/maps/search/{{ $row->nama_pasar }}"
                                                             class="btn btn-info" target="_blank"
                                                             style="border:none">Maps</a>
+                                                        <a href="/export-produk/{{ $id }}" id="export-produk" class="btn btn-warning"
+                                                            style="border:none">Export ke
+                                                            Excel</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -95,55 +97,63 @@
                                                         </thead>
                                                         <tbody>
                                                             @foreach ($rows as $no => $r)
-                                                                <tr>
-                                                                    <td>
-                                                                        {{ $no = $no + 1 }}
-                                                                    </td>
-                                                                    <td>
-                                                                        <a
-                                                                            href="/pasar/{{ $row->pasar_id }}/{{ $r->produk_id }}"><strong>{{ $r->nama_produk }}</strong></a>
-                                                                    </td>
-                                                                    <td>
-                                                                        <h6>{{ $r->satuan }}</h6>
-                                                                    </td>
-                                                                    <td>
-                                                                        Rp.
-                                                                        {{ produk::checkHargaKemarin($r->produk_id, $row->pasar_id) }},-
-                                                                    </td>
-                                                                    <td>
-                                                                        Rp.
-                                                                        {{ produk::checkHargaSekarang($r->produk_id, $row->pasar_id) }},-
-                                                                    </td>
-                                                                    <td class="text-center align-middle">
-                                                                        @php
-                                                                            $selisih = produk::checkHargaSekarang($r->produk_id, $row->pasar_id) == '-' ? 'Harga belum diupdate' : ((int) produk::checkHargaKemarin($r->produk_id, $row->pasar_id) / (int) produk::checkHargaSekarang($r->produk_id, $row->pasar_id) - 1) * 100 * -1 . ' %';
-                                                                        @endphp
-                                                                        @if ($selisih > 0)
-                                                                            <p class="text-danger d-flex"><i
-                                                                                    class="mdi mdi-menu-up">
-                                                                                </i><span>
-                                                                                    <strong>
-                                                                                        {{ $selisih }}</strong>
-                                                                                </span></p>
-                                                                        @elseif ($selisih == 0)
-                                                                            <p class="text-secondary d-flex">
-                                                                                <i class="mdi mdi-dots-horizontal">
-                                                                                </i><span>
-                                                                                    <strong>
-                                                                                        {{ $selisih }}</strong>
-                                                                                </span>
-                                                                            </p>
-                                                                        @else
-                                                                            <p class="text-success d-flex">
-                                                                                <i class="mdi mdi-menu-down">
-                                                                                </i><span>
-                                                                                    <strong>
-                                                                                        {{ $selisih }}</strong>
-                                                                                </span>
-                                                                            </p>
-                                                                        @endif
-                                                                    </td>
-                                                                </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    {{ $no = $no + 1 }}
+                                                                </td>
+                                                                <td>
+                                                                    <a
+                                                                        href="/pasar/{{ $row->pasar_id }}/{{ $r->produk_id }}"><strong>{{
+                                                                            $r->nama_produk }}</strong></a>
+                                                                </td>
+                                                                <td>
+                                                                    <h6>{{ $r->satuan }}</h6>
+                                                                </td>
+                                                                <td>
+                                                                    Rp.
+                                                                    {{ produk::checkHargaKemarin($r->produk_id,
+                                                                    $row->pasar_id) }},-
+                                                                </td>
+                                                                <td>
+                                                                    Rp.
+                                                                    {{ produk::checkHargaSekarang($r->produk_id,
+                                                                    $row->pasar_id) }},-
+                                                                </td>
+                                                                <td class="text-center align-middle">
+                                                                    @php
+                                                                    $selisih = produk::checkHargaSekarang($r->produk_id,
+                                                                    $row->pasar_id) == '-' ? 'Harga belum diupdate' :
+                                                                    ((int) produk::checkHargaKemarin($r->produk_id,
+                                                                    $row->pasar_id) / (int)
+                                                                    produk::checkHargaSekarang($r->produk_id,
+                                                                    $row->pasar_id) - 1) * 100 * -1 . ' %';
+                                                                    @endphp
+                                                                    @if ($selisih > 0)
+                                                                    <p class="text-danger d-flex"><i
+                                                                            class="mdi mdi-menu-up">
+                                                                        </i><span>
+                                                                            <strong>
+                                                                                {{ $selisih }}</strong>
+                                                                        </span></p>
+                                                                    @elseif ($selisih == 0)
+                                                                    <p class="text-secondary d-flex">
+                                                                        <i class="mdi mdi-dots-horizontal">
+                                                                        </i><span>
+                                                                            <strong>
+                                                                                {{ $selisih }}</strong>
+                                                                        </span>
+                                                                    </p>
+                                                                    @else
+                                                                    <p class="text-success d-flex">
+                                                                        <i class="mdi mdi-menu-down">
+                                                                        </i><span>
+                                                                            <strong>
+                                                                                {{ $selisih }}</strong>
+                                                                        </span>
+                                                                    </p>
+                                                                    @endif
+                                                                </td>
+                                                            </tr>
                                                             @endforeach
                                                         </tbody>
                                                     </table>
