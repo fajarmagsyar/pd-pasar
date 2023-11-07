@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Route;
 
@@ -50,6 +51,7 @@ Route::get('/admn-pg/produk/{id}/hapus', [AdminController::class, 'produkHapus']
 
 Route::get('/admn-pg/produk/{id}/tambah-harga', [AdminController::class, 'tambahHarga'])->middleware(['checkAuth']);
 Route::post('/admn-pg/produk/{id}/tambah-harga', [AdminController::class, 'hargaTambahStore'])->middleware(['checkAuth']);
+Route::get('/admn-pg/laporan', [LaporanController::class, 'index'])->middleware(['checkAuth']);
 
 //harga
 Route::get('/admn-pg/harga', [AdminController::class, 'harga'])->middleware(['checkAuth']);

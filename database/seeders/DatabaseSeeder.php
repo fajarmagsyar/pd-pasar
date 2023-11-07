@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
     {
         $pasar1 = Pasar::create([
             'nama_pasar' => 'Pasar Oebobo',
+            'password' => Hash::make('ateblukup'),
+            'role' => 'pasar',
             'alamat_pasar' => 'Kelurahan Oebobo',
             'email' => 'pasar.oebobo@kupangkota.go.id',
             'password' => Hash::make('admin1234'), // password
@@ -29,6 +31,8 @@ class DatabaseSeeder extends Seeder
 
         $pasar2 = Pasar::create([
             'nama_pasar' => 'Pasar Oesapa',
+            'password' => Hash::make('ateblukup'),
+            'role' => 'pasar',
             'alamat_pasar' => 'Kelurahan Oesapa',
             'email' => 'pasar.oesapa@kupangkota.go.id',
             'password' => Hash::make('admin1234'), // password
@@ -39,6 +43,8 @@ class DatabaseSeeder extends Seeder
 
         $pasar3 = Pasar::create([
             'nama_pasar' => 'Pasar Inpres',
+            'password' => Hash::make('ateblukup'),
+            'role' => 'pasar',
             'alamat_pasar' => 'Kelurahan Inpres',
             'email' => 'pasar.inpres@kupangkota.go.id',
             'password' => Hash::make('admin1234'), // password
@@ -49,6 +55,8 @@ class DatabaseSeeder extends Seeder
 
         $pasar4 = Pasar::create([
             'nama_pasar' => 'Pasar Oeba',
+            'password' => Hash::make('ateblukup'),
+            'role' => 'pasar',
             'alamat_pasar' => 'Kelurahan Oeba',
             'email' => 'pasar.oeba@kupangkota.go.id',
             'password' => Hash::make('admin1234'), // password
@@ -59,6 +67,8 @@ class DatabaseSeeder extends Seeder
 
         $pasar5 = Pasar::create([
             'nama_pasar' => 'Pasar Penfui',
+            'password' => Hash::make('ateblukup'),
+            'role' => 'pasar',
             'alamat_pasar' => 'Kelurahan Penfui',
             'email' => 'pasar.penfui@kupangkota.go.id',
             'password' => Hash::make('admin1234'), // password
@@ -69,6 +79,8 @@ class DatabaseSeeder extends Seeder
 
         $pasar6 = Pasar::create([
             'nama_pasar' => 'Pasar Kuanino',
+            'password' => Hash::make('ateblukup'),
+            'role' => 'pasar',
             'alamat_pasar' => 'Kelurahan Kuanino',
             'email' => 'pasar.kuanino@kupangkota.go.id',
             'password' => Hash::make('admin1234'), // password
@@ -111,35 +123,15 @@ class DatabaseSeeder extends Seeder
             'harga' => '250000',
         ]);
 
-        PerubahanHarga::create([
-            'produk_id' => $produk2['produk_id'],
-            'pasar_id' => $pasar1['pasar_id'],
-            'harga' => '210000',
+        Pasar::create([
+            'nama_pasar' => 'Admin',
+            'alamat_pasar' => 'Admin',
+            'email' => 'kominfo@kupangkota.go.id',
+            'telp' => '-',
+            'password' => Hash::make('ateblukup'),
+            'role' => 'admin',
+            'langlat' => '-10.169407711878556, 123.59063389726064',
+            'foto_pasar' => 'assets/images/dashboard/kuanino.png',
         ]);
-
-        PerubahanHarga::create([
-            'produk_id' => $produk3['produk_id'],
-            'pasar_id' => $pasar2['pasar_id'],
-            'harga' => '15600',
-        ]);
-
-        PerubahanHarga::create([
-            'produk_id' => $produk4['produk_id'],
-            'pasar_id' => $pasar3['pasar_id'],
-            'harga' => '17800',
-        ]);
-
-        PerubahanHarga::create([
-            'produk_id' => $produk4['produk_id'],
-            'pasar_id' => $pasar3['pasar_id'],
-            'harga' => '18000',
-        ]);
-
-        PerubahanHarga::create([
-            'produk_id' => $produk4['produk_id'],
-            'pasar_id' => $pasar3['pasar_id'],
-            'harga' => '19000',
-        ]);
-
     }
 }
