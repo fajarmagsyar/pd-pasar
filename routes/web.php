@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 //PDF EXPORT
 Route::get('/print/pdf/seluruh/{pasar_id}', [PdfController::class, 'seluruhPerPasar']);
+Route::get('/export-produk/{id}',[ClientController::class, 'exportProduk']);
 
 Route::get('/', [ClientController::class, 'index']);
 Route::get('/admn-pg/login', [ClientController::class, 'login']);
